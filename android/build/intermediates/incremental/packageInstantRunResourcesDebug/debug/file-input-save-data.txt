@@ -1,0 +1,33 @@
+#Internal package file, do not edit.
+#Mon Nov 20 21:46:45 CET 2017
+2.base=/home/ronny/montse/SpaceRace_apunts_activitats/android/build/intermediates/res/debug/resources-debug.ap_
+5.file=/home/ronny/montse/SpaceRace_apunts_activitats/android/build/intermediates/res/debug/resources-debug.ap_/AndroidManifest.xml
+5.set=ANDROID_RESOURCE
+3.base=/home/ronny/montse/SpaceRace_apunts_activitats/android/build/intermediates/assets/debug
+6.file=/home/ronny/montse/SpaceRace_apunts_activitats/android/build/intermediates/assets/debug/sounds/Afterburner.ogg
+2.set=ANDROID_RESOURCE
+4.base=/home/ronny/montse/SpaceRace_apunts_activitats/android/build/intermediates/assets/debug
+7.file=/home/ronny/montse/SpaceRace_apunts_activitats/android/build/intermediates/assets/debug/sounds/llicencies.txt
+7.set=ASSET
+count=10
+0.file=/home/ronny/montse/SpaceRace_apunts_activitats/android/build/intermediates/assets/debug/sheet.xcf
+5.base=/home/ronny/montse/SpaceRace_apunts_activitats/android/build/intermediates/res/debug/resources-debug.ap_
+8.file=/home/ronny/montse/SpaceRace_apunts_activitats/android/build/intermediates/assets/debug/sounds/explosion.wav
+4.set=ASSET
+6.base=/home/ronny/montse/SpaceRace_apunts_activitats/android/build/intermediates/assets/debug
+1.file=/home/ronny/montse/SpaceRace_apunts_activitats/android/build/intermediates/res/debug/resources-debug.ap_/res/drawable-xxhdpi-v4/ic_launcher.png
+9.set=ASSET
+9.file=/home/ronny/montse/SpaceRace_apunts_activitats/android/build/intermediates/assets/debug/sheet.png
+1.set=ANDROID_RESOURCE
+7.base=/home/ronny/montse/SpaceRace_apunts_activitats/android/build/intermediates/assets/debug
+2.file=/home/ronny/montse/SpaceRace_apunts_activitats/android/build/intermediates/res/debug/resources-debug.ap_/resources.arsc
+6.set=ASSET
+0.base=/home/ronny/montse/SpaceRace_apunts_activitats/android/build/intermediates/assets/debug
+8.base=/home/ronny/montse/SpaceRace_apunts_activitats/android/build/intermediates/assets/debug
+3.file=/home/ronny/montse/SpaceRace_apunts_activitats/android/build/intermediates/assets/debug/fonts/space.fnt
+3.set=ASSET
+1.base=/home/ronny/montse/SpaceRace_apunts_activitats/android/build/intermediates/res/debug/resources-debug.ap_
+9.base=/home/ronny/montse/SpaceRace_apunts_activitats/android/build/intermediates/assets/debug
+4.file=/home/ronny/montse/SpaceRace_apunts_activitats/android/build/intermediates/assets/debug/fonts/space.png
+8.set=ASSET
+0.set=ASSET
