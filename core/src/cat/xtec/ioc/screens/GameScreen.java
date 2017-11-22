@@ -91,9 +91,6 @@ public class GameScreen implements Screen {
 
         // Assignem com a gestor d'entrada la classe InputHandler
         Gdx.input.setInputProcessor(new InputHandler(this));
-        if (Gdx.input.justTouched()) {
-
-        }
 
     }
 
@@ -166,7 +163,7 @@ public class GameScreen implements Screen {
                 updateReady();
                 break;
             case PAUSE:
-                pauseGame();
+                pause();
                 break;
 
         }
@@ -210,10 +207,6 @@ public class GameScreen implements Screen {
 
     }
 
-    private void pauseGame(){
-
-    };
-
     public void reset() {
 
         // Posem el text d'inici
@@ -241,7 +234,7 @@ public class GameScreen implements Screen {
 
     @Override
     public void pause() {
-
+        Gdx.app.log("PAUSE", " PAUSE ");
     }
 
     @Override
@@ -261,6 +254,10 @@ public class GameScreen implements Screen {
 
     public Spacecraft getSpacecraft() {
         return spacecraft;
+    }
+
+    public Pause getPauseButton(){
+        return pause;
     }
 
     public Stage getStage() {
