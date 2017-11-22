@@ -30,7 +30,7 @@ public class GameScreen implements Screen {
     // Els estats del joc
     public enum GameState {
 
-        READY, RUNNING, GAMEOVER
+        READY, RUNNING, GAMEOVER, PAUSE
 
     }
 
@@ -71,7 +71,7 @@ public class GameScreen implements Screen {
 
         //Butó pause
         /************ Probar esto :v ******/
-        pause = new Pause(Settings.PAUSE_X, Settings.PAUSE_Y, 10, 10);
+        pause = new Pause(Settings.PAUSE_X, Settings.PAUSE_Y, Settings.PAUSE_WIDTH, Settings.PAUSE_HEIGHT);
         scrollHandler = new ScrollHandler();
 
         // Afegim els actors a l'stage
@@ -91,6 +91,9 @@ public class GameScreen implements Screen {
 
         // Assignem com a gestor d'entrada la classe InputHandler
         Gdx.input.setInputProcessor(new InputHandler(this));
+        if (Gdx.input.justTouched()) {
+
+        }
 
     }
 
@@ -162,6 +165,9 @@ public class GameScreen implements Screen {
             case READY:
                 updateReady();
                 break;
+            case PAUSE:
+                pauseGame();
+                break;
 
         }
 
@@ -203,6 +209,10 @@ public class GameScreen implements Screen {
         explosionTime += delta;
 
     }
+
+    private void pauseGame(){
+
+    };
 
     public void reset() {
 
