@@ -2,53 +2,56 @@ package cat.xtec.ioc.objects;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+
+import cat.xtec.ioc.helpers.AssetManager;
 
 /**
  * Created by ronny on 20/11/17.
  */
 
-public class Pause extends Game {
-    private final long width;
-    private final long height;
-    Stage stage;
-    TextButton button;
-    TextButton.TextButtonStyle textButtonStyle;
-    BitmapFont font;
-    Skin skin;
-    TextureAtlas buttonAtlas;
+public class Pause extends Actor {
+    // Paràmetres del botó
+    private Vector2 position;
+    private int width, height;
 
     public Pause(float x, float y, int width, int height) {
-
-        // Inicialitzem els arguments segons la crida del constructor
+        this.position = new Vector2(x, y);
         this.width = width;
         this.height = height;
+        setTouchable(Touchable.enabled);
     }
 
     @Override
-    public void create() {
-        stage = new Stage();
-        Gdx.input.setInputProcessor(stage);
-        font = new BitmapFont();
-        skin = new Skin();
-        buttonAtlas = new TextureAtlas(Gdx.files.internal("pause.png"));
-        skin.addRegions(buttonAtlas);
-        textButtonStyle = new TextButton.TextButtonStyle();
-        textButtonStyle.font = font;
-        textButtonStyle.up = skin.getDrawable("up-button");
-        textButtonStyle.down = skin.getDrawable("down-button");
-        textButtonStyle.checked = skin.getDrawable("checked-button");
-        button = new TextButton("Button1", textButtonStyle);
-        stage.addActor(button);
+    public void draw(Batch batch, float parentAlpha) {
+        super.draw(batch, parentAlpha);
+        batch.draw(AssetManager.pause, getX(), getY(), getWidth(), getHeight());
     }
 
-    @Override
-    public void render() {
-        super.render();
-        stage.draw();
+    // Getters dels atributs principals
+    public float getX() {
+        return position.x;
     }
+
+    public float getY() {
+        return position.y;
+    }
+
+    public float getWidth() {
+        return width;
+    }
+
+    public float getHeight() {
+        return height;
+    }
+
 }

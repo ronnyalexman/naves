@@ -3,10 +3,16 @@ package cat.xtec.ioc.screens;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
+import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
 import java.util.ArrayList;
@@ -61,14 +67,20 @@ public class GameScreen implements Screen {
 
         // Creem la nau i la resta d'objectes
         spacecraft = new Spacecraft(Settings.SPACECRAFT_STARTX, Settings.SPACECRAFT_STARTY, Settings.SPACECRAFT_WIDTH, Settings.SPACECRAFT_HEIGHT);
-        pause = new Pause();
+
+
+        //Butó pause
+        /************ Probar esto :v ******/
+        pause = new Pause(Settings.PAUSE_X, Settings.PAUSE_Y, 10, 10);
         scrollHandler = new ScrollHandler();
 
         // Afegim els actors a l'stage
         stage.addActor(scrollHandler);
         stage.addActor(spacecraft);
+        stage.addActor(pause);
         // Donem nom a l'Actor
         spacecraft.setName("spacecraft");
+        pause.setName("Pause");
 
         // Iniciem el GlyphLayout
         textLayout = new GlyphLayout();

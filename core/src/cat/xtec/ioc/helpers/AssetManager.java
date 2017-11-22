@@ -14,8 +14,11 @@ public class AssetManager {
     // Sprite Sheet
     public static Texture sheet;
 
+    // Sprite Pause
+    public static Texture pauseTexture;
+
     // Nau i fons
-    public static TextureRegion spacecraft, spacecraftDown, spacecraftUp, background;
+    public static TextureRegion spacecraft, spacecraftDown, spacecraftUp, background, pause;
 
     // Asteroid
     public static TextureRegion[] asteroid;
@@ -34,6 +37,13 @@ public class AssetManager {
 
 
     public static void load() {
+        // Sprite del butó pause
+        pauseTexture = new Texture(Gdx.files.internal("pause.png"));
+        pauseTexture.setFilter(Texture.TextureFilter.Nearest, Texture.TextureFilter.Nearest);
+
+        pause = new TextureRegion(pauseTexture);
+        pause.flip(false, false);
+
         // Carreguem les textures i li apliquem el mètode d'escalat 'nearest'
         sheet = new Texture(Gdx.files.internal("sheet.png"));
         sheet.setFilter(Texture.TextureFilter.Nearest, Texture.TextureFilter.Nearest);
