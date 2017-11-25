@@ -9,6 +9,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import cat.xtec.ioc.objects.Pause;
 import cat.xtec.ioc.objects.Spacecraft;
 import cat.xtec.ioc.screens.GameScreen;
+import sun.rmi.runtime.Log;
 
 public class InputHandler implements InputProcessor {
 
@@ -56,9 +57,15 @@ public class InputHandler implements InputProcessor {
                 // Si fem clic comencem el joc
                 screen.setCurrentState(GameScreen.GameState.RUNNING);
                 break;
+            case PAUSE:
+                //Surtir de l'estat de pause
+                screen.setCurrentState(GameScreen.GameState.RUNNING);
+                break;
             case RUNNING:
                 previousY = screenY;
-                if(pause.touchDown(screenX, screenY)){
+
+                if (pause.touchDown(screenX, screenY)) {
+                    Gdx.app.log("PAUSE", " PAUSE ");
                     screen.setCurrentState(GameScreen.GameState.PAUSE);
                     break;
                 }

@@ -56,7 +56,7 @@ public class Pause extends Actor {
 
     //Acció quan es dona al butó
     public boolean touchDown(int xx, int yy) {
-        return (xx >= position.x && xx <= position.x + width) && (yy >= position.y && yy <= position.y + height);
+        return (xx >= 1720 && xx <= 1880) && (yy >= 0 && yy <= 235);
     }
 
 

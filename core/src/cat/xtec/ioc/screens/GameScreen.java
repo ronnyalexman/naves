@@ -9,8 +9,12 @@ import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.actions.Actions;
+import com.badlogic.gdx.scenes.scene2d.actions.RepeatAction;
+import com.badlogic.gdx.scenes.scene2d.ui.Container;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.viewport.Viewport;
@@ -52,6 +56,11 @@ public class GameScreen implements Screen {
     // Preparem el textLayout per escriure text
     private GlyphLayout textLayout;
 
+    // Text Pause
+    private Label.LabelStyle textStyle;
+    private Label textPause;
+    Container containerPause;
+
     public GameScreen(Batch prevBatch, Viewport prevViewport) {
 
         // Iniciem la música
@@ -70,9 +79,18 @@ public class GameScreen implements Screen {
 
 
         //Butó pause
-        /************ Probar esto :v ******/
         pause = new Pause(Settings.PAUSE_X, Settings.PAUSE_Y, Settings.PAUSE_WIDTH, Settings.PAUSE_HEIGHT);
         scrollHandler = new ScrollHandler();
+        //Text Pause
+        textStyle = new Label.LabelStyle(AssetManager.font, null);
+        textPause = new Label("Pause", textStyle);
+        containerPause = new Container(textPause);
+        containerPause.setTransform(true);
+        containerPause.center();
+        containerPause.setPosition(Settings.GAME_WIDTH / 2, Settings.GAME_HEIGHT / 2);
+        containerPause.setVisible(false);
+        stage.addActor(containerPause);
+
 
         // Afegim els actors a l'stage
         stage.addActor(scrollHandler);
@@ -184,7 +202,9 @@ public class GameScreen implements Screen {
 
     private void updateRunning(float delta) {
         stage.act(delta);
-
+        AssetManager.music.play();
+        pause.setVisible(true);
+        containerPause.setVisible(false);
         if (scrollHandler.collides(spacecraft)) {
             // Si hi ha hagut col·lisió: Reproduïm l'explosió i posem l'estat a GameOver
             AssetManager.explosionSound.play();
@@ -234,7 +254,31 @@ public class GameScreen implements Screen {
 
     @Override
     public void pause() {
-        Gdx.app.log("PAUSE", " PAUSE ");
+        //Pausem la música
+        AssetManager.music.pause();
+        pause.setVisible(false);
+        containerPause.setVisible(true);
+        spacecraft.clearActions();
+        spacecraft.addAction(Actions.repeat(RepeatAction.FOREVER, Actions.sequence(Actions.run(new Runnable() {
+            @Override
+            public void run() {
+                Actions.delay(0.5f);
+                spacecraft.setVisible(true);
+                Actions.delay(0.5f);
+                spacecraft.setVisible(false);
+            }
+        }), Actions.delay(0.5f), Actions.run(new Runnable() {
+            @Override
+            public void run() {
+                Actions.delay(0.5f);
+                spacecraft.setVisible(false);
+                Actions.delay(0.5f);
+                spacecraft.setVisible(true);
+            }
+        }), Actions.delay(0.5f))));
+        stage.addActor(spacecraft);
+        stage.addActor(containerPause);
+        stage.draw();
     }
 
     @Override
@@ -256,7 +300,7 @@ public class GameScreen implements Screen {
         return spacecraft;
     }
 
-    public Pause getPauseButton(){
+    public Pause getPauseButton() {
         return pause;
     }
 

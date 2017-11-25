@@ -1,5 +1,6 @@
 package cat.xtec.ioc.objects;
 
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
@@ -43,7 +44,7 @@ public class Spacecraft extends Actor {
     }
 
     public void act(float delta) {
-
+        super.act(delta);
         // Movem la spacecraft depenent de la direcció controlant que no surti de la pantalla
         switch (direction) {
             case SPACECRAFT_UP:
@@ -125,6 +126,8 @@ public class Spacecraft extends Actor {
     @Override
     public void draw(Batch batch, float parentAlpha) {
         super.draw(batch, parentAlpha);
+        Color color = getColor();
+        batch.setColor(color.r, color.g, color.b, parentAlpha);
         batch.draw(getSpacecraftTexture(), position.x, position.y, width, height);
     }
 
