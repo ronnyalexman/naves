@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <instant-run
     abi="armeabi-v7a,armeabi"
-    api-level="23"
+    api-level="25"
     build-mode="COLD"
     density="xxhdpi"
     format="10"
     ir-eligibility="COMPATIBLE"
     plugin-version="3.0.0"
-    timestamp="1511646248754"
+    timestamp="1511734957717"
     token="2146700143717690130"
     verifier="COLD_SWAP_REQUESTED" >
 
@@ -19,30 +19,24 @@
         duration="0" />
     <task
         name="instant-run-transform"
-        duration="6" />
+        duration="9" />
     <task
         name="verifier"
-        duration="0" />
+        duration="1" />
 
     <artifact
-        location="/home/ronny/montse/SpaceRace_apunts_activitats/android/build/intermediates/split-apk/debug/slices/slice_2.apk"
+        location="/home/ronny/montse/SpaceRace_apunts_activitats/android/build/intermediates/split-apk/debug/slices/slice_5.apk"
         type="SPLIT" />
-    <artifact
-        location="/home/ronny/montse/SpaceRace_apunts_activitats/android/build/outputs/apk/debug/android-debug.apk"
-        type="SPLIT_MAIN" />
 
     <build
         build-mode="FULL"
-        timestamp="1511643585876"
+        timestamp="1511730746672"
         verifier="FULL_BUILD_REQUESTED" >
         <artifact
-            location="/home/ronny/montse/SpaceRace_apunts_activitats/android/build/intermediates/split-apk/debug/slices/slice_2.apk"
+            location="/home/ronny/montse/SpaceRace_apunts_activitats/android/build/intermediates/split-apk/debug/slices/slice_5.apk"
             type="SPLIT" />
         <artifact
-            location="/home/ronny/montse/SpaceRace_apunts_activitats/android/build/outputs/apk/debug/android-debug.apk"
-            type="SPLIT_MAIN" />
-        <artifact
-            location="/home/ronny/montse/SpaceRace_apunts_activitats/android/build/intermediates/split-apk/debug/slices/slice_5.apk"
+            location="/home/ronny/montse/SpaceRace_apunts_activitats/android/build/intermediates/split-apk/debug/slices/slice_2.apk"
             type="SPLIT" />
         <artifact
             location="/home/ronny/montse/SpaceRace_apunts_activitats/android/build/intermediates/split-apk/debug/slices/slice_4.apk"
@@ -71,21 +65,6 @@
         <artifact
             location="/home/ronny/montse/SpaceRace_apunts_activitats/android/build/intermediates/split-apk/debug/slices/slice_9.apk"
             type="SPLIT" />
-    </build>
-    <build
-        build-mode="COLD"
-        ir-eligibility="COMPATIBLE"
-        timestamp="1511645881879"
-        verifier="COLD_SWAP_REQUESTED" >
-        <artifact
-            location="/home/ronny/montse/SpaceRace_apunts_activitats/android/build/intermediates/split-apk/debug/slices/slice_5.apk"
-            type="SPLIT" />
-    </build>
-    <build
-        build-mode="COLD"
-        ir-eligibility="COMPATIBLE"
-        timestamp="1511646084435"
-        verifier="COLD_SWAP_REQUESTED" >
         <artifact
             location="/home/ronny/montse/SpaceRace_apunts_activitats/android/build/outputs/apk/debug/android-debug.apk"
             type="SPLIT_MAIN" />
@@ -93,14 +72,20 @@
     <build
         build-mode="COLD"
         ir-eligibility="COMPATIBLE"
-        timestamp="1511646248754"
+        timestamp="1511734481658"
         verifier="COLD_SWAP_REQUESTED" >
         <artifact
             location="/home/ronny/montse/SpaceRace_apunts_activitats/android/build/intermediates/split-apk/debug/slices/slice_2.apk"
             type="SPLIT" />
+    </build>
+    <build
+        build-mode="COLD"
+        ir-eligibility="COMPATIBLE"
+        timestamp="1511734957717"
+        verifier="COLD_SWAP_REQUESTED" >
         <artifact
-            location="/home/ronny/montse/SpaceRace_apunts_activitats/android/build/outputs/apk/debug/android-debug.apk"
-            type="SPLIT_MAIN" />
+            location="/home/ronny/montse/SpaceRace_apunts_activitats/android/build/intermediates/split-apk/debug/slices/slice_5.apk"
+            type="SPLIT" />
     </build>
 
 </instant-run>

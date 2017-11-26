@@ -65,8 +65,11 @@ public class InputHandler implements InputProcessor {
                 previousY = screenY;
 
                 if (pause.touchDown(screenX, screenY)) {
-                    Gdx.app.log("PAUSE", " PAUSE ");
-                    screen.setCurrentState(GameScreen.GameState.PAUSE);
+                    if(screen.getCurrentState().equals(GameScreen.GameState.PAUSE)){
+                        screen.setCurrentState(GameScreen.GameState.RESUME);
+                    }else {
+                        screen.setCurrentState(GameScreen.GameState.PAUSE);
+                    }
                     break;
                 }
 

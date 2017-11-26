@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.scenes.scene2d.Action;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.actions.RepeatAction;
@@ -29,12 +30,14 @@ import cat.xtec.ioc.objects.ScrollHandler;
 import cat.xtec.ioc.objects.Spacecraft;
 import cat.xtec.ioc.utils.Settings;
 
+import static cat.xtec.ioc.objects.Spacecraft.blinking;
+
 public class GameScreen implements Screen {
 
     // Els estats del joc
     public enum GameState {
 
-        READY, RUNNING, GAMEOVER, PAUSE
+        READY, RUNNING, GAMEOVER, PAUSE, RESUME
 
     }
 
@@ -60,6 +63,8 @@ public class GameScreen implements Screen {
     private Label.LabelStyle textStyle;
     private Label textPause;
     Container containerPause;
+    private boolean paused = false;
+
 
     public GameScreen(Batch prevBatch, Viewport prevViewport) {
 
@@ -183,6 +188,9 @@ public class GameScreen implements Screen {
             case PAUSE:
                 pause();
                 break;
+            case RESUME:
+                resume();
+                break;
 
         }
 
@@ -202,9 +210,7 @@ public class GameScreen implements Screen {
 
     private void updateRunning(float delta) {
         stage.act(delta);
-        AssetManager.music.play();
-        pause.setVisible(true);
-        containerPause.setVisible(false);
+
         if (scrollHandler.collides(spacecraft)) {
             // Si hi ha hagut col·lisió: Reproduïm l'explosió i posem l'estat a GameOver
             AssetManager.explosionSound.play();
@@ -254,28 +260,16 @@ public class GameScreen implements Screen {
 
     @Override
     public void pause() {
+        paused = true;
         //Pausem la música
         AssetManager.music.pause();
+        //fem el buto pause invisible
         pause.setVisible(false);
+        //la lletra de Pause la fem visible
         containerPause.setVisible(true);
-        spacecraft.clearActions();
-        spacecraft.addAction(Actions.repeat(RepeatAction.FOREVER, Actions.sequence(Actions.run(new Runnable() {
-            @Override
-            public void run() {
-                Actions.delay(0.5f);
-                spacecraft.setVisible(true);
-                Actions.delay(0.5f);
-                spacecraft.setVisible(false);
-            }
-        }), Actions.delay(0.5f), Actions.run(new Runnable() {
-            @Override
-            public void run() {
-                Actions.delay(0.5f);
-                spacecraft.setVisible(false);
-                Actions.delay(0.5f);
-                spacecraft.setVisible(true);
-            }
-        }), Actions.delay(0.5f))));
+        //donem l'efecte de opacitat a la nau
+        spacecraft.paused();
+        //afegim els canvis del actors
         stage.addActor(spacecraft);
         stage.addActor(containerPause);
         stage.draw();
@@ -283,7 +277,14 @@ public class GameScreen implements Screen {
 
     @Override
     public void resume() {
-
+        paused = false;
+        AssetManager.music.play();
+        pause.setVisible(true);
+        containerPause.setVisible(false);
+        spacecraft.resume();
+        stage.addActor(spacecraft);
+        stage.addActor(containerPause);
+        stage.draw();
     }
 
     @Override

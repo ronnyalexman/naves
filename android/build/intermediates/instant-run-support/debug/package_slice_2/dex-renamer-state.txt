@@ -1,4 +1,4 @@
-#Sat Nov 25 22:44:09 CET 2017
+#Sun Nov 26 23:14:41 CET 2017
 base.0=/home/ronny/montse/SpaceRace_apunts_activitats/android/build/intermediates/transforms/dexMerger/debug/40
 renamed.0=classes.dex
 file.0=/home/ronny/montse/SpaceRace_apunts_activitats/android/build/intermediates/transforms/dexMerger/debug/40/classes.dex
