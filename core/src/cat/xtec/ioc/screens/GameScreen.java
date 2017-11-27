@@ -268,17 +268,19 @@ public class GameScreen implements Screen {
         pause.setVisible(false);
         //la lletra de Pause la fem visible
         containerPause.setVisible(true);
-       // if(!paused){
-            spacecraft.paused();
-            stage.addActor(spacecraft);
-        //}
 
+        spacecraft.paused();
+        stage.addActor(spacecraft);
+        for (Asteroid a :
+                scrollHandler.getAsteroids()) {
+            a.setVisible(paused);
+        }
         //afegim els canvis del actors
         stage.addActor(containerPause);
         stage.draw();
 
 
-        paused = true;
+        paused = !paused;
     }
 
     @Override
@@ -288,9 +290,9 @@ public class GameScreen implements Screen {
         containerPause.setVisible(false);
         spacecraft.setVisible(true);
         spacecraft.resume();
-       /* for (Asteroid a : scrollHandler.getAsteroids()) {
+        for (Asteroid a : scrollHandler.getAsteroids()) {
             a.setVisible(true);
-        }*/
+        }
         currentState = GameState.RUNNING;
         stage.addActor(spacecraft);
         stage.addActor(pause);

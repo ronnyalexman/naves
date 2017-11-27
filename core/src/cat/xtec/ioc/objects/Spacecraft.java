@@ -51,20 +51,23 @@ public class Spacecraft extends Actor {
         setBounds(position.x, position.y, width, height);
         setTouchable(Touchable.enabled);
         //Accio de parpadeix
-        blinking = Actions.repeat(RepeatAction.FOREVER, Actions.sequence(
-                Actions.run(new Runnable() {
-                    @Override
-                    public void run() {
-                        Actions.delay(1000);
-                        setVisible(false);
-                    }
-                }), Actions.run(new Runnable() {
-                    @Override
-                    public void run() {
-                        Actions.delay(1000);
-                        setVisible(true);
-                    }
-                })));
+        blinking = Actions.repeat(RepeatAction.FOREVER, Actions.sequence(Actions.run(new Runnable() {
+            @Override
+            public void run() {
+                Actions.delay(0.2f);
+                setVisible(true);
+                Actions.delay(0.2f);
+                setVisible(false);
+            }
+        }), Actions.delay(0.2f),Actions.run(new Runnable() {
+            @Override
+            public void run() {
+                Actions.delay(0.2f);
+                setVisible(false);
+                Actions.delay(0.2f);
+                setVisible(true);
+            }
+        }),  Actions.delay(0.2f)));
     }
 
     public void act(float delta) {
@@ -83,9 +86,12 @@ public class Spacecraft extends Actor {
             case SPACECRAFT_STRAIGHT:
                 break;
             case SPACECRAFT_PAUSED:
-                this.addAction(blinking);
+                if(this.getActions().size < 1){
+                    this.addAction(blinking);
+                }
                 super.act(delta);
                 direction = SPACECRAFT_STRAIGHT;
+                act(delta);
                 break;
         }
 
