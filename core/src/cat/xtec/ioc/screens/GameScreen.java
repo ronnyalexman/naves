@@ -18,6 +18,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+import com.badlogic.gdx.utils.Timer;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
 import java.util.ArrayList;
@@ -260,31 +261,42 @@ public class GameScreen implements Screen {
 
     @Override
     public void pause() {
-        paused = true;
+
         //Pausem la música
         AssetManager.music.pause();
         //fem el buto pause invisible
         pause.setVisible(false);
         //la lletra de Pause la fem visible
         containerPause.setVisible(true);
-        //donem l'efecte de opacitat a la nau
-        spacecraft.paused();
+       // if(!paused){
+            spacecraft.paused();
+            stage.addActor(spacecraft);
+        //}
+
         //afegim els canvis del actors
-        stage.addActor(spacecraft);
         stage.addActor(containerPause);
         stage.draw();
+
+
+        paused = true;
     }
 
     @Override
     public void resume() {
-        paused = false;
         AssetManager.music.play();
         pause.setVisible(true);
         containerPause.setVisible(false);
+        spacecraft.setVisible(true);
         spacecraft.resume();
+       /* for (Asteroid a : scrollHandler.getAsteroids()) {
+            a.setVisible(true);
+        }*/
+        currentState = GameState.RUNNING;
         stage.addActor(spacecraft);
+        stage.addActor(pause);
         stage.addActor(containerPause);
         stage.draw();
+        paused = false;
     }
 
     @Override

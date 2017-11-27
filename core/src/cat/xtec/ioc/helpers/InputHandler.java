@@ -5,6 +5,8 @@ import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.actions.Actions;
+import com.badlogic.gdx.scenes.scene2d.actions.RepeatAction;
 
 import cat.xtec.ioc.objects.Pause;
 import cat.xtec.ioc.objects.Spacecraft;
@@ -59,17 +61,13 @@ public class InputHandler implements InputProcessor {
                 break;
             case PAUSE:
                 //Surtir de l'estat de pause
-                screen.setCurrentState(GameScreen.GameState.RUNNING);
+                screen.setCurrentState(GameScreen.GameState.RESUME);
                 break;
             case RUNNING:
                 previousY = screenY;
 
                 if (pause.touchDown(screenX, screenY)) {
-                    if(screen.getCurrentState().equals(GameScreen.GameState.PAUSE)){
-                        screen.setCurrentState(GameScreen.GameState.RESUME);
-                    }else {
-                        screen.setCurrentState(GameScreen.GameState.PAUSE);
-                    }
+                    screen.setCurrentState(GameScreen.GameState.PAUSE);
                     break;
                 }
 

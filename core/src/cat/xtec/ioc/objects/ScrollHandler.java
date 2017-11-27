@@ -34,7 +34,7 @@ public class ScrollHandler extends Group {
         r = new Random();
 
         // Comencem amb 3 asteroids
-        numAsteroids = 3;
+        numAsteroids = 4;
 
         // Creem l'ArrayList
         asteroids = new ArrayList<Asteroid>();
@@ -44,7 +44,7 @@ public class ScrollHandler extends Group {
 
         // Afegim el primer Asteroid a l'Array i al grup
         Asteroid asteroid = new Asteroid(Settings.GAME_WIDTH, r.nextInt(Settings.GAME_HEIGHT - (int) newSize), newSize, newSize, Settings.ASTEROID_SPEED);
-        asteroids.add(asteroid);
+       // asteroids.add(asteroid);
         addActor(asteroid);
 
         // Des del segon fins l'últim asteroide
@@ -52,7 +52,7 @@ public class ScrollHandler extends Group {
             // Creem la mida al·leatòria
             newSize = Methods.randomFloat(Settings.MIN_ASTEROID, Settings.MAX_ASTEROID) * 34;
             // Afegim l'asteroid.
-            asteroid = new Asteroid(asteroids.get(asteroids.size() - 1).getTailX() + Settings.ASTEROID_GAP, r.nextInt(Settings.GAME_HEIGHT - (int) newSize), newSize, newSize, Settings.ASTEROID_SPEED);
+            asteroid = new Asteroid(Settings.GAME_WIDTH, r.nextInt(Settings.GAME_HEIGHT - (int) newSize), newSize, newSize, Settings.ASTEROID_SPEED);
             // Afegim l'asteroide a l'ArrayList
             asteroids.add(asteroid);
             // Afegim l'asteroide al grup d'actors

@@ -1,5 +1,6 @@
 package cat.xtec.ioc.objects;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -21,6 +22,7 @@ public class Spacecraft extends Actor {
     public static final int SPACECRAFT_UP = 1;
     public static final int SPACECRAFT_DOWN = 2;
     public static final int SPACECRAFT_PAUSED = 3;
+
 
     // Paràmetres de la spacecraft
     private Vector2 position;
@@ -49,41 +51,42 @@ public class Spacecraft extends Actor {
         setBounds(position.x, position.y, width, height);
         setTouchable(Touchable.enabled);
         //Accio de parpadeix
-        blinking = Actions.repeat(RepeatAction.FOREVER, Actions.sequence(Actions.run(new Runnable() {
-            @Override
-            public void run() {
-                Actions.delay(1f);
-                setVisible(true);
-                Actions.delay(1f);
-                setVisible(false);
-            }
-        }), Actions.delay(1f), Actions.run(new Runnable() {
-            @Override
-            public void run() {
-                Actions.delay(1f);
-                setVisible(false);
-                Actions.delay(1f);
-                setVisible(true);
-            }
-        }), Actions.delay(1f)));
+        blinking = Actions.repeat(RepeatAction.FOREVER, Actions.sequence(
+                Actions.run(new Runnable() {
+                    @Override
+                    public void run() {
+                        Actions.delay(1000);
+                        setVisible(false);
+                    }
+                }), Actions.run(new Runnable() {
+                    @Override
+                    public void run() {
+                        Actions.delay(1000);
+                        setVisible(true);
+                    }
+                })));
     }
 
     public void act(float delta) {
-        super.act(delta);
-            // Movem la spacecraft depenent de la direcció controlant que no surti de la pantalla
-            switch (direction) {
-                case SPACECRAFT_UP:
-                    if (this.position.y - Settings.SPACECRAFT_VELOCITY * delta >= 0) {
-                        this.position.y -= Settings.SPACECRAFT_VELOCITY * delta;
-                    }
-                    break;
-                case SPACECRAFT_DOWN:
-                    if (this.position.y + height + Settings.SPACECRAFT_VELOCITY * delta <= Settings.GAME_HEIGHT) {
-                        this.position.y += Settings.SPACECRAFT_VELOCITY * delta;
-                    }
-                    break;
-                case SPACECRAFT_STRAIGHT:
-                    break;
+        // Movem la spacecraft depenent de la direcció controlant que no surti de la pantalla
+        switch (direction) {
+            case SPACECRAFT_UP:
+                if (this.position.y - Settings.SPACECRAFT_VELOCITY * delta >= 0) {
+                    this.position.y -= Settings.SPACECRAFT_VELOCITY * delta;
+                }
+                break;
+            case SPACECRAFT_DOWN:
+                if (this.position.y + height + Settings.SPACECRAFT_VELOCITY * delta <= Settings.GAME_HEIGHT) {
+                    this.position.y += Settings.SPACECRAFT_VELOCITY * delta;
+                }
+                break;
+            case SPACECRAFT_STRAIGHT:
+                break;
+            case SPACECRAFT_PAUSED:
+                this.addAction(blinking);
+                super.act(delta);
+                direction = SPACECRAFT_STRAIGHT;
+                break;
         }
 
         collisionRect.set(position.x, position.y + 3, width, 10);
@@ -140,7 +143,6 @@ public class Spacecraft extends Actor {
     }
 
     public void reset() {
-
         // La posem a la posició inicial i a l'estat normal
         position.x = Settings.SPACECRAFT_STARTX;
         position.y = Settings.SPACECRAFT_STARTY;
@@ -149,17 +151,19 @@ public class Spacecraft extends Actor {
     }
 
     public void paused() {
-        this.addAction(blinking);
+        direction = SPACECRAFT_PAUSED;
+        act(Gdx.graphics.getDeltaTime());
     }
+
     public void resume() {
-        this.removeAction(blinking);
+        direction = SPACECRAFT_STRAIGHT;
     }
 
     @Override
     public void draw(Batch batch, float parentAlpha) {
-        super.draw(batch, parentAlpha);
         Color color = getColor();
-        batch.setColor(color.r, color.g, color.b, parentAlpha);
+        batch.setColor(color.r, color.g, color.b, color.a);
+        super.draw(batch, parentAlpha);
         batch.draw(getSpacecraftTexture(), position.x, position.y, width, height);
     }
 
