@@ -15,6 +15,9 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 
 import cat.xtec.ioc.helpers.AssetManager;
 
+import static cat.xtec.ioc.utils.Settings.GAME_HEIGHT;
+import static cat.xtec.ioc.utils.Settings.GAME_WIDTH;
+
 /**
  * Created by ronny on 20/11/17.
  */
@@ -34,7 +37,7 @@ public class Pause extends Actor {
     @Override
     public void draw(Batch batch, float parentAlpha) {
         super.draw(batch, parentAlpha);
-        batch.draw(AssetManager.pause, getX(), getY(), getWidth(), getHeight());
+        batch.draw(AssetManager.fireBtn, getX(), getY(), getWidth(), getHeight());
     }
 
     // Getters dels atributs principals
@@ -56,8 +59,8 @@ public class Pause extends Actor {
 
     //Acció quan es dona al butó
     public boolean touchDown(int xx, int yy) {
-        return (xx >= 1720 && xx <= 1880) && (yy >= 0 && yy <= 235);
+        //Referent a la resolució de la pantall de 1920 1080
+        return (xx >= (Gdx.graphics.getWidth() - (GAME_WIDTH - width)) && xx <= (Gdx.graphics.getWidth() - width)) && (yy >= position.y && yy <= (((double)Gdx.graphics.getWidth()/Gdx.graphics.getHeight())*GAME_HEIGHT));
+        //return (xx >= 1720 && xx <= 1880) && (yy >= position.y && yy <= 235);
     }
-
-
 }

@@ -16,9 +16,11 @@ public class AssetManager {
 
     // Sprite Pause
     public static Texture pauseTexture;
+    // Sprite Butó fire
+    public static Texture btnFireTexture;
 
-    // Nau i fons
-    public static TextureRegion spacecraft, spacecraftDown, spacecraftUp, background, pause;
+    // Nau i fons i butons
+    public static TextureRegion spacecraft, spacecraftDown, spacecraftUp, background, pause, fireBtn;
 
     // Asteroid
     public static TextureRegion[] asteroid;
@@ -40,9 +42,18 @@ public class AssetManager {
         // Sprite del butó pause
         pauseTexture = new Texture(Gdx.files.internal("pause.png"));
         pauseTexture.setFilter(Texture.TextureFilter.Nearest, Texture.TextureFilter.Nearest);
-
         pause = new TextureRegion(pauseTexture);
         pause.flip(false, false);
+
+        //Sprite del butí fire
+        //https://www.1001freedownloads.com/free-clipart/fire-alarm
+        btnFireTexture = new Texture(Gdx.files.internal("btnFire.png"));
+        btnFireTexture.setFilter(Texture.TextureFilter.Nearest, Texture.TextureFilter.Nearest);
+        fireBtn = new TextureRegion(btnFireTexture);
+        fireBtn.flip(false, false);
+
+
+
 
         // Carreguem les textures i li apliquem el mètode d'escalat 'nearest'
         sheet = new Texture(Gdx.files.internal("sheet.png"));

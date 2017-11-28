@@ -1,4 +1,4 @@
-#Sat Nov 25 20:13:01 CET 2017
-base.0=/home/ronny/montse/SpaceRace_apunts_activitats/android/build/intermediates/transforms/dexMerger/debug/42
+#Tue Nov 28 17:56:34 CET 2017
+base.0=/home/users/inf/wiaw2/iaw8799345/android/naves/android/build/intermediates/transforms/dexMerger/debug/42
+path.0=classes.dex
 renamed.0=classes.dex
-file.0=/home/ronny/montse/SpaceRace_apunts_activitats/android/build/intermediates/transforms/dexMerger/debug/42/classes.dex

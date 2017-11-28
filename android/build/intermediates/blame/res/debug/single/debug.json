@@ -1,5 +1,9 @@
 [
     {
+        "merged": "/home/users/inf/wiaw2/iaw8799345/android/naves/android/build/intermediates/res/merged/debug/drawable-xhdpi_ic_launcher.png.flat",
+        "source": "/home/users/inf/wiaw2/iaw8799345/android/naves/android/res/drawable-xhdpi/ic_launcher.png"
+    },
+    {
         "merged": "/home/ronny/montse/SpaceRace_apunts_activitats/android/build/intermediates/res/merged/debug/drawable-mdpi_ic_launcher.png.flat",
         "source": "/home/ronny/montse/SpaceRace_apunts_activitats/android/res/drawable-mdpi/ic_launcher.png"
     },
@@ -10,6 +14,18 @@
     {
         "merged": "/home/ronny/montse/SpaceRace_apunts_activitats/android/build/intermediates/res/merged/debug/drawable-hdpi_ic_launcher.png.flat",
         "source": "/home/ronny/montse/SpaceRace_apunts_activitats/android/res/drawable-hdpi/ic_launcher.png"
+    },
+    {
+        "merged": "/home/users/inf/wiaw2/iaw8799345/android/naves/android/build/intermediates/res/merged/debug/drawable-hdpi_ic_launcher.png.flat",
+        "source": "/home/users/inf/wiaw2/iaw8799345/android/naves/android/res/drawable-hdpi/ic_launcher.png"
+    },
+    {
+        "merged": "/home/users/inf/wiaw2/iaw8799345/android/naves/android/build/intermediates/res/merged/debug/drawable-mdpi_ic_launcher.png.flat",
+        "source": "/home/users/inf/wiaw2/iaw8799345/android/naves/android/res/drawable-mdpi/ic_launcher.png"
+    },
+    {
+        "merged": "/home/users/inf/wiaw2/iaw8799345/android/naves/android/build/intermediates/res/merged/debug/drawable-xxhdpi_ic_launcher.png.flat",
+        "source": "/home/users/inf/wiaw2/iaw8799345/android/naves/android/res/drawable-xxhdpi/ic_launcher.png"
     },
     {
         "merged": "/home/ronny/montse/SpaceRace_apunts_activitats/android/build/intermediates/res/merged/debug/drawable-xxhdpi_ic_launcher.png.flat",
