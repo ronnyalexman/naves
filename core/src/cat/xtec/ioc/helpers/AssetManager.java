@@ -32,6 +32,7 @@ public class AssetManager {
 
     // Sons
     public static Sound explosionSound;
+    public static Sound shootSound;
     public static Music music;
 
     // Font
@@ -39,19 +40,19 @@ public class AssetManager {
 
 
     public static void load() {
+        //Sprite del butó fire
+        //https://www.1001freedownloads.com/free-clipart/fire-alarm
+        btnFireTexture = new Texture(Gdx.files.internal("btnFire.png"));
+       // btnFireTexture.setFilter(Texture.TextureFilter.Nearest, Texture.TextureFilter.Nearest);
+        fireBtn = new TextureRegion(btnFireTexture);
+        fireBtn.flip(false, true);
+
+
         // Sprite del butó pause
         pauseTexture = new Texture(Gdx.files.internal("pause.png"));
         pauseTexture.setFilter(Texture.TextureFilter.Nearest, Texture.TextureFilter.Nearest);
         pause = new TextureRegion(pauseTexture);
         pause.flip(false, false);
-
-        //Sprite del butí fire
-        //https://www.1001freedownloads.com/free-clipart/fire-alarm
-        btnFireTexture = new Texture(Gdx.files.internal("btnFire.png"));
-        btnFireTexture.setFilter(Texture.TextureFilter.Nearest, Texture.TextureFilter.Nearest);
-        fireBtn = new TextureRegion(btnFireTexture);
-        fireBtn.flip(false, false);
-
 
 
 
@@ -105,6 +106,10 @@ public class AssetManager {
         // Explosió
         explosionSound = Gdx.audio.newSound(Gdx.files.internal("sounds/explosion.wav"));
 
+        //Disparo
+        shootSound = Gdx.audio.newSound(Gdx.files.internal("sounds/shoot.wav"));
+
+
         // Música del joc
         music = Gdx.audio.newMusic(Gdx.files.internal("sounds/Afterburner.ogg"));
         music.setVolume(0.2f);
@@ -123,6 +128,7 @@ public class AssetManager {
         sheet.dispose();
         explosionSound.dispose();
         music.dispose();
+        shootSound.dispose();
 
     }
 }

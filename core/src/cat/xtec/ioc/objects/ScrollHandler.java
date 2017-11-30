@@ -34,32 +34,13 @@ public class ScrollHandler extends Group {
         r = new Random();
 
         // Comencem amb 3 asteroids
-        numAsteroids = 4;
+        numAsteroids = 3;
 
         // Creem l'ArrayList
         asteroids = new ArrayList<Asteroid>();
-
-        // Definim una mida aleatòria entre el mínim i el màxim
-        float newSize = Methods.randomFloat(Settings.MIN_ASTEROID, Settings.MAX_ASTEROID) * 34;
-
-        // Afegim el primer Asteroid a l'Array i al grup
-        Asteroid asteroid = new Asteroid(Settings.GAME_WIDTH, r.nextInt(Settings.GAME_HEIGHT - (int) newSize), newSize, newSize, Settings.ASTEROID_SPEED);
-       // asteroids.add(asteroid);
-        addActor(asteroid);
-
-        // Des del segon fins l'últim asteroide
-        for (int i = 1; i < numAsteroids; i++) {
-            // Creem la mida al·leatòria
-            newSize = Methods.randomFloat(Settings.MIN_ASTEROID, Settings.MAX_ASTEROID) * 34;
-            // Afegim l'asteroid.
-            asteroid = new Asteroid(Settings.GAME_WIDTH, r.nextInt(Settings.GAME_HEIGHT - (int) newSize), newSize, newSize, Settings.ASTEROID_SPEED);
-            // Afegim l'asteroide a l'ArrayList
-            asteroids.add(asteroid);
-            // Afegim l'asteroide al grup d'actors
-            addActor(asteroid);
-        }
-
+        createAsteroids();
     }
+
 
     @Override
     public void act(float delta) {
@@ -110,6 +91,24 @@ public class ScrollHandler extends Group {
     }
 
     public ArrayList<Asteroid> getAsteroids() {
+        return asteroids;
+    }
+
+
+    public ArrayList<Asteroid> createAsteroids() {
+        asteroids.clear();
+        Asteroid asteroid;
+        for (int i = 0; i < numAsteroids; i++) {
+            // Creem la mida al·leatòria
+            float newSize = Methods.randomFloat(Settings.MIN_ASTEROID, Settings.MAX_ASTEROID) * 34;
+            // Afegim l'asteroid.
+            asteroid = new Asteroid(Settings.GAME_WIDTH, r.nextInt(Settings.GAME_HEIGHT - (int) newSize), newSize, newSize, Settings.ASTEROID_SPEED);
+            // Afegim l'asteroide a l'ArrayList
+            asteroid.setName("" + i);
+            asteroids.add(asteroid);
+            // Afegim l'asteroide al grup d'actors
+            addActor(asteroid);
+        }
         return asteroids;
     }
 }

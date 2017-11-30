@@ -37,7 +37,7 @@ public class Pause extends Actor {
     @Override
     public void draw(Batch batch, float parentAlpha) {
         super.draw(batch, parentAlpha);
-        batch.draw(AssetManager.fireBtn, getX(), getY(), getWidth(), getHeight());
+        batch.draw(AssetManager.pause, getX(), getY(), getWidth(), getHeight());
     }
 
     // Getters dels atributs principals

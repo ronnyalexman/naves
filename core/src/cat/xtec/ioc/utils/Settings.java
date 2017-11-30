@@ -21,8 +21,9 @@ public class Settings {
 
     public static final int BTN_FIRE_WIDTH = 30;
     public static final int BTN_FIRE_HEIGHT = 15;
-    public static final float BTN_FIRE_Y = 0;
-    public static final float BTN_FIRE_X = GAME_WIDTH - BTN_FIRE_WIDTH;
+    public static final int BTN_FIRE_MARGIN = 10;
+    public static final float BTN_FIRE_Y = (GAME_HEIGHT - BTN_FIRE_MARGIN) - BTN_FIRE_HEIGHT;
+    public static final float BTN_FIRE_X = (GAME_WIDTH - BTN_FIRE_MARGIN) - BTN_FIRE_WIDTH;
 
     // Rang de valors per canviar la mida de l'asteroide.
     public static final float MAX_ASTEROID = 1.5f;

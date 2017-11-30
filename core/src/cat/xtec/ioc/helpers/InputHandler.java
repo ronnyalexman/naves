@@ -8,6 +8,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.actions.RepeatAction;
 
+import cat.xtec.ioc.objects.FireButon;
 import cat.xtec.ioc.objects.Pause;
 import cat.xtec.ioc.objects.Spacecraft;
 import cat.xtec.ioc.screens.GameScreen;
@@ -20,6 +21,7 @@ public class InputHandler implements InputProcessor {
     // Objectes necessaris
     private Spacecraft spacecraft;
     private Pause pause;
+    private FireButon fireButon;
     private GameScreen screen;
     private Vector2 stageCoord;
 
@@ -31,6 +33,7 @@ public class InputHandler implements InputProcessor {
         this.screen = screen;
         spacecraft = screen.getSpacecraft();
         pause = screen.getPauseButton();
+        fireButon = screen.getFireButon();
         stage = screen.getStage();
 
     }
@@ -69,6 +72,9 @@ public class InputHandler implements InputProcessor {
                 if (pause.touchDown(screenX, screenY)) {
                     screen.setCurrentState(GameScreen.GameState.PAUSE);
                     break;
+                }
+                if(fireButon.touchDown(screenX, screenY)){
+                    AssetManager.shootSound.play();
                 }
 
                 stageCoord = stage.screenToStageCoordinates(new Vector2(screenX, screenY));

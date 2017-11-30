@@ -1,5 +1,5 @@
 #Internal package file, do not edit.
-#Tue Nov 28 18:09:24 CET 2017
+#Thu Nov 30 17:27:47 CET 2017
 4.path=btnFire.png
 8.set=ASSET
 6.path=fonts/space.png
@@ -11,6 +11,7 @@
 4.set=ASSET
 5.base=/home/users/inf/wiaw2/iaw8799345/android/naves/android/build/intermediates/assets/debug
 7.base=/home/users/inf/wiaw2/iaw8799345/android/naves/android/build/intermediates/assets/debug
+9.base=/home/users/inf/wiaw2/iaw8799345/android/naves/android/build/intermediates/assets/debug
 1.baseType=DIRECTORY
 0.set=ASSET
 6.baseType=DIRECTORY
@@ -23,6 +24,7 @@
 5.path=sounds/explosion.wav
 0.base=/home/users/inf/wiaw2/iaw8799345/android/naves/android/build/intermediates/assets/debug
 7.path=pause.png
+9.path=sounds/shoot.wav
 6.set=ASSET
 2.base=/home/users/inf/wiaw2/iaw8799345/android/naves/android/build/intermediates/assets/debug
 4.base=/home/users/inf/wiaw2/iaw8799345/android/naves/android/build/intermediates/assets/debug
@@ -31,9 +33,11 @@
 8.base=/home/users/inf/wiaw2/iaw8799345/android/naves/android/build/intermediates/assets/debug
 2.set=ASSET
 8.baseType=DIRECTORY
-count=9
+9.set=ASSET
+count=10
 4.baseType=DIRECTORY
 5.set=ASSET
+9.baseType=DIRECTORY
 0.path=sheet.xcf
 1.set=ASSET
 2.path=sheet.png

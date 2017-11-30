@@ -26,6 +26,7 @@ import java.util.ArrayList;
 import cat.xtec.ioc.helpers.AssetManager;
 import cat.xtec.ioc.helpers.InputHandler;
 import cat.xtec.ioc.objects.Asteroid;
+import cat.xtec.ioc.objects.FireButon;
 import cat.xtec.ioc.objects.Pause;
 import cat.xtec.ioc.objects.ScrollHandler;
 import cat.xtec.ioc.objects.Spacecraft;
@@ -48,6 +49,7 @@ public class GameScreen implements Screen {
     private Stage stage;
     private Spacecraft spacecraft;
     private Pause pause;
+    private FireButon fireButon;
     private ScrollHandler scrollHandler;
 
     // Encarregats de dibuixar elements per pantalla
@@ -65,6 +67,10 @@ public class GameScreen implements Screen {
     private Label textPause;
     Container containerPause;
     private boolean paused = false;
+
+    long endPauseTime = 0;
+    long secondsAsteroids = 1000;
+    int lastAsteroid = 0;
 
 
     public GameScreen(Batch prevBatch, Viewport prevViewport) {
@@ -97,14 +103,19 @@ public class GameScreen implements Screen {
         containerPause.setVisible(false);
         stage.addActor(containerPause);
 
+        //Butó fire
+        fireButon = new FireButon(Settings.BTN_FIRE_X, Settings.BTN_FIRE_Y, Settings.BTN_FIRE_WIDTH, Settings.BTN_FIRE_HEIGHT);
+
 
         // Afegim els actors a l'stage
         stage.addActor(scrollHandler);
         stage.addActor(spacecraft);
+        stage.addActor(fireButon);
         stage.addActor(pause);
         // Donem nom a l'Actor
         spacecraft.setName("spacecraft");
         pause.setName("Pause");
+        fireButon.setName("btnFire");
 
         // Iniciem el GlyphLayout
         textLayout = new GlyphLayout();
@@ -184,6 +195,7 @@ public class GameScreen implements Screen {
                 updateRunning(delta);
                 break;
             case READY:
+                lastAsteroid = lastAsteroid();
                 updateReady();
                 break;
             case PAUSE:
@@ -210,6 +222,22 @@ public class GameScreen implements Screen {
     }
 
     private void updateRunning(float delta) {
+        //Quan passi 1 segon
+        float lastX = scrollHandler.getAsteroids().get(lastAsteroid).getTailX();
+        if(lastX == 0){
+            try {
+                Gdx.app.wait(secondsAsteroids);
+                scrollHandler.reset();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+
+       /* if (endPauseTime < System.currentTimeMillis()) {
+            Gdx.app.log("Time", endPauseTime + "");
+            endPauseTime = System.currentTimeMillis() + secondsAsteroids;
+            // scrollHandler.reset();
+        }*/
         stage.act(delta);
 
         if (scrollHandler.collides(spacecraft)) {
@@ -235,6 +263,7 @@ public class GameScreen implements Screen {
     }
 
     public void reset() {
+        endPauseTime = System.currentTimeMillis() + secondsAsteroids;
 
         // Posem el text d'inici
         textLayout.setText(AssetManager.font, "Are you\nready?");
@@ -331,7 +360,23 @@ public class GameScreen implements Screen {
         return currentState;
     }
 
+    public FireButon getFireButon() {
+        return fireButon;
+    }
+
     public void setCurrentState(GameState currentState) {
         this.currentState = currentState;
+    }
+
+    public int lastAsteroid() {
+        int contador = 0;
+        for (Asteroid a :
+                scrollHandler.getAsteroids()) {
+            if (a.getName().equals("" + scrollHandler.getAsteroids().size())) {
+                return contador;
+            }
+            contador++;
+        }
+        return 0;
     }
 }
