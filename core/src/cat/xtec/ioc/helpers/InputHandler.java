@@ -8,10 +8,12 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.actions.RepeatAction;
 
+import cat.xtec.ioc.objects.Bullet;
 import cat.xtec.ioc.objects.FireButon;
 import cat.xtec.ioc.objects.Pause;
 import cat.xtec.ioc.objects.Spacecraft;
 import cat.xtec.ioc.screens.GameScreen;
+import cat.xtec.ioc.utils.Settings;
 import sun.rmi.runtime.Log;
 
 public class InputHandler implements InputProcessor {
@@ -75,6 +77,7 @@ public class InputHandler implements InputProcessor {
                 }
                 if(fireButon.touchDown(screenX, screenY)){
                     AssetManager.shootSound.play();
+                    stage.addActor(new Bullet(spacecraft.getX(), spacecraft.getY(), Settings.FIRE_WIDTH, Settings.FIRE_HEIGHT));
                 }
 
                 stageCoord = stage.screenToStageCoordinates(new Vector2(screenX, screenY));

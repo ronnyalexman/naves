@@ -1,5 +1,6 @@
 package cat.xtec.ioc.objects;
 
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Group;
 
 import java.util.ArrayList;
@@ -110,5 +111,15 @@ public class ScrollHandler extends Group {
             addActor(asteroid);
         }
         return asteroids;
+    }
+
+    public boolean collides(Bullet b) {
+        // Comprovem les col·lisions entre cada asteroid i la nau
+        for (Asteroid asteroid : asteroids) {
+            if (asteroid.collides(b)) {
+                return true;
+            }
+        }
+        return false;
     }
 }

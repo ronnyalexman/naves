@@ -16,11 +16,11 @@ public class AssetManager {
 
     // Sprite Pause
     public static Texture pauseTexture;
-    // Sprite Butó fire
-    public static Texture btnFireTexture;
+    // Sprite Butó fire i el del dispar
+    public static Texture btnFireTexture, fireTexture;
 
     // Nau i fons i butons
-    public static TextureRegion spacecraft, spacecraftDown, spacecraftUp, background, pause, fireBtn;
+    public static TextureRegion spacecraft, spacecraftDown, spacecraftUp, background, pause, fireBtn, fire;
 
     // Asteroid
     public static TextureRegion[] asteroid;
@@ -40,10 +40,15 @@ public class AssetManager {
 
 
     public static void load() {
+        //Sprite del dispar
+        //https://www.deviantart.com/art/Red-Blaster-Bolt-211442824
+        fireTexture = new Texture(Gdx.files.internal("disparo.png"));
+        fire = new TextureRegion(fireTexture);
+        fire.flip(false, false);
+
         //Sprite del butó fire
         //https://www.1001freedownloads.com/free-clipart/fire-alarm
         btnFireTexture = new Texture(Gdx.files.internal("btnFire.png"));
-       // btnFireTexture.setFilter(Texture.TextureFilter.Nearest, Texture.TextureFilter.Nearest);
         fireBtn = new TextureRegion(btnFireTexture);
         fireBtn.flip(false, true);
 
