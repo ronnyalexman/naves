@@ -165,10 +165,10 @@ public class Spacecraft extends Actor {
     public void fire() {
         AssetManager.shootSound.play();
         fire = new Bullet(getX(), getY(), Settings.FIRE_WIDTH, Settings.FIRE_HEIGHT);
-
     }
 
     public void resume() {
+        setVisible(true);
         direction = SPACECRAFT_STRAIGHT;
     }
 

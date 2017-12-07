@@ -1,9 +1,12 @@
 package cat.xtec.ioc.objects;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.Intersector;
+import com.badlogic.gdx.scenes.scene2d.Action;
+import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.actions.RepeatAction;
 import com.badlogic.gdx.scenes.scene2d.actions.RotateByAction;
 
@@ -22,6 +25,8 @@ public class Asteroid extends Scrollable {
     Random r;
 
     int assetAsteroid;
+    //Parpadejar quan es pausa
+    public static Action blinking;
 
     public Asteroid(float x, float y, float width, float height, float velocity) {
         super(x, y, width, height, velocity);
@@ -44,6 +49,24 @@ public class Asteroid extends Scrollable {
         RepeatAction repeat = new RepeatAction();
         repeat.setAction(rotateAction);
         repeat.setCount(RepeatAction.FOREVER);
+
+        blinking = Actions.repeat(RepeatAction.FOREVER, Actions.sequence(Actions.run(new Runnable() {
+            @Override
+            public void run() {
+                Actions.delay(0.2f);
+                setVisible(true);
+                Actions.delay(0.2f);
+                setVisible(false);
+            }
+        }), Actions.delay(0.2f), Actions.run(new Runnable() {
+            @Override
+            public void run() {
+                Actions.delay(0.2f);
+                setVisible(false);
+                Actions.delay(0.2f);
+                setVisible(true);
+            }
+        }), Actions.delay(0.2f)));
 
         // Equivalent:
         // this.addAction(Actions.repeat(RepeatAction.FOREVER, Actions.rotateBy(-90f, 0.2f)));
@@ -109,5 +132,12 @@ public class Asteroid extends Scrollable {
             return (Intersector.overlaps(collisionCircle, fire.getCollisionRect()));
         }
         return false;
+    }
+
+    public void setPause() {
+        if (this.getActions().size == 1) {
+            this.addAction(blinking);
+            super.act(Gdx.graphics.getDeltaTime());
+        }
     }
 }

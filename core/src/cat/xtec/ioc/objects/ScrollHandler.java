@@ -100,12 +100,8 @@ public class ScrollHandler extends Group {
         asteroids.clear();
         Asteroid asteroid;
         for (int i = 0; i < numAsteroids; i++) {
-            // Creem la mida al·leatòria
-            float newSize = Methods.randomFloat(Settings.MIN_ASTEROID, Settings.MAX_ASTEROID) * 34;
             // Afegim l'asteroid.
-            asteroid = new Asteroid(Settings.GAME_WIDTH, r.nextInt(Settings.GAME_HEIGHT - (int) newSize), newSize, newSize, Settings.ASTEROID_SPEED);
-            // Afegim l'asteroide a l'ArrayList
-            asteroid.setName("" + i);
+            asteroid = createAsteroid();
             asteroids.add(asteroid);
             // Afegim l'asteroide al grup d'actors
             addActor(asteroid);
@@ -113,13 +109,23 @@ public class ScrollHandler extends Group {
         return asteroids;
     }
 
-    public boolean collides(Bullet b) {
-        // Comprovem les col·lisions entre cada asteroid i la nau
-        for (Asteroid asteroid : asteroids) {
-            if (asteroid.collides(b)) {
-                return true;
+    private Asteroid createAsteroid() {
+        // Creem la mida al·leatòria
+        float newSize = Methods.randomFloat(Settings.MIN_ASTEROID, Settings.MAX_ASTEROID) * 34;
+        return new Asteroid(Settings.GAME_WIDTH, r.nextInt(Settings.GAME_HEIGHT - (int) newSize), newSize, newSize, Settings.ASTEROID_SPEED);
+    }
+
+    public int collides(Bullet b) {
+        // Comprovem les col·lisions entre cada asteroid i el dispar
+        for (int i = 0; i < asteroids.size(); i++) {
+            if (asteroids.get(i).collides(b)) {
+                return i;
             }
         }
-        return false;
+        return -1;
+    }
+
+    public void removeAsteroid(int i) {
+        this.asteroids.get(i).reset(Settings.GAME_WIDTH);
     }
 }

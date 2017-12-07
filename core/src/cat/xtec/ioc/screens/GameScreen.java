@@ -16,7 +16,6 @@ import java.util.ArrayList;
 import cat.xtec.ioc.helpers.AssetManager;
 import cat.xtec.ioc.helpers.InputHandler;
 import cat.xtec.ioc.objects.Asteroid;
-import cat.xtec.ioc.objects.Bullet;
 import cat.xtec.ioc.objects.FireButon;
 import cat.xtec.ioc.objects.Pause;
 import cat.xtec.ioc.objects.ScrollHandler;
@@ -56,11 +55,9 @@ public class GameScreen implements Screen {
     private Label.LabelStyle textStyle;
     private Label textPause;
     Container containerPause;
-    private boolean paused = false;
 
     long endPauseTime = 0;
     long secondsAsteroids = 1000;
-    int lastAsteroid = 0;
 
 
     public GameScreen(Batch prevBatch, Viewport prevViewport) {
@@ -183,7 +180,6 @@ public class GameScreen implements Screen {
                 updateRunning(delta);
                 break;
             case READY:
-                lastAsteroid = lastAsteroid();
                 updateReady();
                 break;
             case PAUSE:
@@ -211,10 +207,15 @@ public class GameScreen implements Screen {
 
     private void updateRunning(float delta) {
         stage.act(delta);
-
-        /*if(scrollHandler.collides((Bullet) stage.getRoot().findActor(Settings.FIRE_NAME))){
+        int index = scrollHandler.collides(spacecraft.fire);
+        if (index != -1) {
+            Asteroid tmp = scrollHandler.getAsteroids().get(index);
             AssetManager.explosionSound.play();
-        }*/
+            batch.begin();
+            batch.draw(AssetManager.explosionAnim.getKeyFrame(explosionTime, false), (tmp.getX() + tmp.getWidth() / 2) - 32, tmp.getY() + tmp.getHeight() / 2 - 32, 64, 64);
+            batch.end();
+            scrollHandler.removeAsteroid(index);
+        }
 
         if (scrollHandler.collides(spacecraft)) {
             // Si hi ha hagut col·lisió: Reproduïm l'explosió i posem l'estat a GameOver
@@ -285,17 +286,14 @@ public class GameScreen implements Screen {
         containerPause.setVisible(true);
 
         spacecraft.paused();
-        stage.addActor(spacecraft);
-        for (Asteroid a :
-                scrollHandler.getAsteroids()) {
-            a.setVisible(paused);
+        if (spacecraft.fire != null) {
+            spacecraft.fire.setPause(true);
+            stage.addActor(spacecraft.fire);
         }
+        stage.addActor(spacecraft);
         //afegim els canvis del actors
         stage.addActor(containerPause);
         stage.draw();
-
-
-        paused = !paused;
     }
 
     @Override
@@ -303,17 +301,13 @@ public class GameScreen implements Screen {
         AssetManager.music.play();
         pause.setVisible(true);
         containerPause.setVisible(false);
-        spacecraft.setVisible(true);
         spacecraft.resume();
-        for (Asteroid a : scrollHandler.getAsteroids()) {
-            a.setVisible(true);
-        }
         currentState = GameState.RUNNING;
+        stage.addActor(spacecraft.fire);
         stage.addActor(spacecraft);
         stage.addActor(pause);
         stage.addActor(containerPause);
         stage.draw();
-        paused = false;
     }
 
     @Override
@@ -354,15 +348,4 @@ public class GameScreen implements Screen {
         this.currentState = currentState;
     }
 
-    public int lastAsteroid() {
-        int contador = 0;
-        for (Asteroid a :
-                scrollHandler.getAsteroids()) {
-            if (a.getName().equals("" + scrollHandler.getAsteroids().size())) {
-                return contador;
-            }
-            contador++;
-        }
-        return 0;
-    }
 }
