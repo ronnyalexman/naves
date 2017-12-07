@@ -12,6 +12,8 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 
+import static cat.xtec.ioc.utils.Settings.BTN_FIRE_NAME;
+
 public class FireButon extends Actor {
     private Vector2 position;
     private int width;
@@ -21,6 +23,9 @@ public class FireButon extends Actor {
         this.position = new Vector2(x, y);
         this.width = width;
         this.height = height;
+        // Per a la gestio de hit
+        setBounds(position.x, position.y, width, height);
+        setName(BTN_FIRE_NAME);
         this.setTouchable(Touchable.enabled);
     }
 
@@ -43,10 +48,5 @@ public class FireButon extends Actor {
 
     public float getHeight() {
         return (float)this.height;
-    }
-
-    public boolean touchDown(int xx, int yy) {
-        Gdx.app.log("Coordenadas", "X: " + xx + "\tY: " + yy);
-        return xx >= 1615 && xx <= 1815 && yy >= 900 && yy <= 970;
     }
 }

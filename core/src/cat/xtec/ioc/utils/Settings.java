@@ -18,6 +18,8 @@ public class Settings {
     public static final int PAUSE_HEIGHT = 30;
     public static final float PAUSE_Y = 0;
     public static final float PAUSE_X = GAME_WIDTH - PAUSE_WIDTH;
+    public static final String  BTN_PAUSE_NAME = "BTNPAUSE";
+    public static final String  BTN_FIRE_NAME = "BTNFIRE";
 
     public static final int BTN_FIRE_WIDTH = 30;
     public static final int BTN_FIRE_HEIGHT = 15;
@@ -41,4 +43,5 @@ public class Settings {
 
 
     public static final String FIRE_NAME = "fire";
+
 }

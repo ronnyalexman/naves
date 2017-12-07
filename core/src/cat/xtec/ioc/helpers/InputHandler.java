@@ -70,20 +70,18 @@ public class InputHandler implements InputProcessor {
                 break;
             case RUNNING:
                 previousY = screenY;
-
-                if (pause.touchDown(screenX, screenY)) {
-                    screen.setCurrentState(GameScreen.GameState.PAUSE);
-                    break;
-                }
-                if(fireButon.touchDown(screenX, screenY)){
-                    AssetManager.shootSound.play();
-                    stage.addActor(new Bullet(spacecraft.getX(), spacecraft.getY(), Settings.FIRE_WIDTH, Settings.FIRE_HEIGHT));
-                }
-
                 stageCoord = stage.screenToStageCoordinates(new Vector2(screenX, screenY));
                 Actor actorHit = stage.hit(stageCoord.x, stageCoord.y, true);
-                if (actorHit != null)
-                    Gdx.app.log("HIT", actorHit.getName());
+                if (actorHit != null) {
+                    if (actorHit.getName().equals(Settings.BTN_PAUSE_NAME)) {
+                        screen.setCurrentState(GameScreen.GameState.PAUSE);
+                        break;
+                    }
+                    if (actorHit.getName().equals(Settings.BTN_FIRE_NAME)) {
+                        spacecraft.fire();
+                        stage.addActor(spacecraft.fire);
+                    }
+                }
                 break;
             // Si l'estat és GameOver tornem a iniciar el joc
             case GAMEOVER:

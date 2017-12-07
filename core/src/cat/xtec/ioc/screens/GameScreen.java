@@ -104,8 +104,6 @@ public class GameScreen implements Screen {
         stage.addActor(pause);
         // Donem nom a l'Actor
         spacecraft.setName("spacecraft");
-        pause.setName("Pause");
-        fireButon.setName("btnFire");
 
         // Iniciem el GlyphLayout
         textLayout = new GlyphLayout();
@@ -212,33 +210,25 @@ public class GameScreen implements Screen {
     }
 
     private void updateRunning(float delta) {
-        //Quan passi 1 segon
-        float lastX = scrollHandler.getAsteroids().get(lastAsteroid).getTailX();
-        if(lastX == 0){
-            try {
-                Gdx.app.wait(secondsAsteroids);
-                scrollHandler.reset();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
-
-       /* if (endPauseTime < System.currentTimeMillis()) {
-            Gdx.app.log("Time", endPauseTime + "");
-            endPauseTime = System.currentTimeMillis() + secondsAsteroids;
-            // scrollHandler.reset();
-        }*/
         stage.act(delta);
 
-        if(scrollHandler.collides((Bullet) stage.getRoot().findActor(Settings.FIRE_NAME))){
+        /*if(scrollHandler.collides((Bullet) stage.getRoot().findActor(Settings.FIRE_NAME))){
             AssetManager.explosionSound.play();
-        }
+        }*/
 
         if (scrollHandler.collides(spacecraft)) {
             // Si hi ha hagut col·lisió: Reproduïm l'explosió i posem l'estat a GameOver
             AssetManager.explosionSound.play();
-            //eliminar els dispars quan sigui gameOver
-            stage.getRoot().findActor(Settings.FIRE_NAME).remove();
+            //esborrar els dispars quan sigui gameOver
+            int i = 0;
+            try {
+                while (stage.getRoot().findActor(Settings.FIRE_NAME).remove()) {
+                    i++;
+                }
+            } catch (NullPointerException d) {
+                Gdx.app.log("Dispars esborrats ", i + "");
+            }
+
             stage.getRoot().findActor("spacecraft").remove();
             textLayout.setText(AssetManager.font, "Game Over :'(");
             currentState = GameState.GAMEOVER;

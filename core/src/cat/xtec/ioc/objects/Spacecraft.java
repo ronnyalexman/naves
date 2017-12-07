@@ -28,6 +28,7 @@ public class Spacecraft extends Actor {
     private Vector2 position;
     private int width, height;
     private int direction;
+    public static Bullet fire;
 
     private Rectangle collisionRect;
 
@@ -59,7 +60,7 @@ public class Spacecraft extends Actor {
                 Actions.delay(0.2f);
                 setVisible(false);
             }
-        }), Actions.delay(0.2f),Actions.run(new Runnable() {
+        }), Actions.delay(0.2f), Actions.run(new Runnable() {
             @Override
             public void run() {
                 Actions.delay(0.2f);
@@ -67,7 +68,7 @@ public class Spacecraft extends Actor {
                 Actions.delay(0.2f);
                 setVisible(true);
             }
-        }),  Actions.delay(0.2f)));
+        }), Actions.delay(0.2f)));
     }
 
     public void act(float delta) {
@@ -86,7 +87,7 @@ public class Spacecraft extends Actor {
             case SPACECRAFT_STRAIGHT:
                 break;
             case SPACECRAFT_PAUSED:
-                if(this.getActions().size < 1){
+                if (this.getActions().size < 1) {
                     this.addAction(blinking);
                 }
                 super.act(delta);
@@ -159,6 +160,12 @@ public class Spacecraft extends Actor {
     public void paused() {
         direction = SPACECRAFT_PAUSED;
         act(Gdx.graphics.getDeltaTime());
+    }
+
+    public void fire() {
+        AssetManager.shootSound.play();
+        fire = new Bullet(getX(), getY(), Settings.FIRE_WIDTH, Settings.FIRE_HEIGHT);
+
     }
 
     public void resume() {

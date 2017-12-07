@@ -26,12 +26,18 @@ public class Bullet extends Actor {
     public Bullet(float x, float y, int width, int height) {
         // Creem el rectangle de col·lisions
         collisionRect = new Rectangle();
-        this.position = new Vector2(x, y);
+        this.position = new Vector2(x+25, y+5);
         this.width = width;
         this.height = height;
         setName(Settings.FIRE_NAME);
+
+        // Creem el rectangle de col·lisions
+        collisionRect = new Rectangle();
+
         this.setTouchable(Touchable.disabled);
-        addAction(Actions.moveTo(getX() + 500, getY(), 5));
+        // Per a la gestio de hit
+        setBounds(position.x, position.y, width, height);
+        addAction(Actions.moveTo(Gdx.graphics.getWidth(), getY(), 5));
         act(Gdx.graphics.getDeltaTime());
     }
 
@@ -41,6 +47,7 @@ public class Bullet extends Actor {
         super.act(delta);
         position.x +=1;
         collisionRect.set(position.x, position.y, width, height);
+        setBounds(position.x, position.y, width, height);
     }
 
     @Override

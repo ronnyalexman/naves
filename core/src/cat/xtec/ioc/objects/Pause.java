@@ -15,6 +15,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 
 import cat.xtec.ioc.helpers.AssetManager;
 
+import static cat.xtec.ioc.utils.Settings.BTN_PAUSE_NAME;
 import static cat.xtec.ioc.utils.Settings.GAME_HEIGHT;
 import static cat.xtec.ioc.utils.Settings.GAME_WIDTH;
 
@@ -31,6 +32,9 @@ public class Pause extends Actor {
         this.position = new Vector2(x, y);
         this.width = width;
         this.height = height;
+        // Per a la gestio de hit
+        setBounds(position.x, position.y, width, height);
+        setName(BTN_PAUSE_NAME);
         setTouchable(Touchable.enabled);
     }
 
@@ -55,12 +59,5 @@ public class Pause extends Actor {
 
     public float getHeight() {
         return height;
-    }
-
-    //Acció quan es dona al butó
-    public boolean touchDown(int xx, int yy) {
-        //Referent a la resolució de la pantall de 1920 1080
-        return (xx >= (Gdx.graphics.getWidth() - (GAME_WIDTH - width)) && xx <= (Gdx.graphics.getWidth() - width)) && (yy >= position.y && yy <= (((double)Gdx.graphics.getWidth()/Gdx.graphics.getHeight())*GAME_HEIGHT));
-        //return (xx >= 1720 && xx <= 1880) && (yy >= position.y && yy <= 235);
     }
 }
