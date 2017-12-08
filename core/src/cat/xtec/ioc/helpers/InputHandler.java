@@ -1,29 +1,21 @@
 package cat.xtec.ioc.helpers;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.actions.Actions;
-import com.badlogic.gdx.scenes.scene2d.actions.RepeatAction;
 
 import cat.xtec.ioc.objects.Bullet;
-import cat.xtec.ioc.objects.FireButon;
-import cat.xtec.ioc.objects.Pause;
 import cat.xtec.ioc.objects.Spacecraft;
 import cat.xtec.ioc.screens.GameScreen;
 import cat.xtec.ioc.utils.Settings;
-import sun.rmi.runtime.Log;
 
 public class InputHandler implements InputProcessor {
 
-    // Enter per a la gesitó del moviment d'arrastrar
+    // Enter per a la gesitó del moviment d'arrossegar
     int previousY = 0;
     // Objectes necessaris
     private Spacecraft spacecraft;
-    private Pause pause;
-    private FireButon fireButon;
     private GameScreen screen;
     private Vector2 stageCoord;
 
@@ -34,8 +26,6 @@ public class InputHandler implements InputProcessor {
         // Obtenim tots els elements necessaris
         this.screen = screen;
         spacecraft = screen.getSpacecraft();
-        pause = screen.getPauseButton();
-        fireButon = screen.getFireButon();
         stage = screen.getStage();
 
     }
@@ -65,7 +55,7 @@ public class InputHandler implements InputProcessor {
                 screen.setCurrentState(GameScreen.GameState.RUNNING);
                 break;
             case PAUSE:
-                //Surtir de l'estat de pause
+                //Sortir de l'estat de pause
                 screen.setCurrentState(GameScreen.GameState.RESUME);
                 break;
             case RUNNING:
@@ -79,7 +69,9 @@ public class InputHandler implements InputProcessor {
                     }
                     if (actorHit.getName().equals(Settings.BTN_FIRE_NAME)) {
                         spacecraft.fire();
-                        stage.addActor(spacecraft.fire);
+                        for (Bullet f : spacecraft.fire) {
+                            stage.addActor(f);
+                        }
                     }
                 }
                 break;

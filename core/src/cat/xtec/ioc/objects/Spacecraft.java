@@ -12,12 +12,14 @@ import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.actions.RepeatAction;
 
+import java.util.ArrayList;
+
 import cat.xtec.ioc.helpers.AssetManager;
 import cat.xtec.ioc.utils.Settings;
 
 public class Spacecraft extends Actor {
 
-    // Distintes posicions de la spacecraft, recta, pujant i baixant
+    // Diverses posicions de la spacecraft, recta, pujant i baixant
     public static final int SPACECRAFT_STRAIGHT = 0;
     public static final int SPACECRAFT_UP = 1;
     public static final int SPACECRAFT_DOWN = 2;
@@ -28,11 +30,11 @@ public class Spacecraft extends Actor {
     private Vector2 position;
     private int width, height;
     private int direction;
-    public static Bullet fire;
+    public static ArrayList<Bullet> fire = new ArrayList<Bullet>();
 
     private Rectangle collisionRect;
 
-    //Parpadejar quan es pausa
+    //Parpallejar quan es pausa
     public static Action blinking;
 
     public Spacecraft(float x, float y, int width, int height) {
@@ -51,7 +53,7 @@ public class Spacecraft extends Actor {
         // Per a la gestio de hit
         setBounds(position.x, position.y, width, height);
         setTouchable(Touchable.enabled);
-        //Accio de parpadeix
+        //Accio de parpalleig
         blinking = Actions.repeat(RepeatAction.FOREVER, Actions.sequence(Actions.run(new Runnable() {
             @Override
             public void run() {
@@ -164,7 +166,7 @@ public class Spacecraft extends Actor {
 
     public void fire() {
         AssetManager.shootSound.play();
-        fire = new Bullet(getX(), getY(), Settings.FIRE_WIDTH, Settings.FIRE_HEIGHT);
+        fire.add(new Bullet(getX(), getY(), Settings.FIRE_WIDTH, Settings.FIRE_HEIGHT, fire.size()));
     }
 
     public void resume() {

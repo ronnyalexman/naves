@@ -1,4 +1,4 @@
-#Tue Nov 28 17:56:34 CET 2017
-base.0=/home/users/inf/wiaw2/iaw8799345/android/naves/android/build/intermediates/transforms/dexMerger/debug/45
+#Sun Dec 03 17:35:03 CET 2017
+base.0=/home/ronny/montse/Naves/naves/android/build/intermediates/transforms/dexMerger/debug/8
 path.0=classes.dex
 renamed.0=classes.dex

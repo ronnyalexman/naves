@@ -13,7 +13,7 @@ public class Settings {
     public static final float SPACECRAFT_STARTX = 20;
     public static final float SPACECRAFT_STARTY = GAME_HEIGHT / 2 - SPACECRAFT_HEIGHT / 2;
 
-    //botones
+    //Botons
     public static final int PAUSE_WIDTH = 30;
     public static final int PAUSE_HEIGHT = 30;
     public static final float PAUSE_Y = 0;

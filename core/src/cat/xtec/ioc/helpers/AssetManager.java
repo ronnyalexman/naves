@@ -16,10 +16,10 @@ public class AssetManager {
 
     // Sprite Pause
     public static Texture pauseTexture;
-    // Sprite Butó fire i el del dispar
+    // Sprite Botó fire i el del tret
     public static Texture btnFireTexture, fireTexture;
 
-    // Nau i fons i butons
+    // Nau i fons i botons
     public static TextureRegion spacecraft, spacecraftDown, spacecraftUp, background, pause, fireBtn, fire;
 
     // Asteroid
@@ -40,20 +40,20 @@ public class AssetManager {
 
 
     public static void load() {
-        //Sprite del dispar
+        //Sprite del tret
         //https://www.deviantart.com/art/Red-Blaster-Bolt-211442824
         fireTexture = new Texture(Gdx.files.internal("disparo.png"));
         fire = new TextureRegion(fireTexture);
         fire.flip(false, false);
 
-        //Sprite del butó fire
+        //Sprite del botó fire
         //https://www.1001freedownloads.com/free-clipart/fire-alarm
         btnFireTexture = new Texture(Gdx.files.internal("btnFire.png"));
         fireBtn = new TextureRegion(btnFireTexture);
         fireBtn.flip(false, true);
 
 
-        // Sprite del butó pause
+        // Sprite del botó pause
         pauseTexture = new Texture(Gdx.files.internal("pause.png"));
         pauseTexture.setFilter(Texture.TextureFilter.Nearest, Texture.TextureFilter.Nearest);
         pause = new TextureRegion(pauseTexture);
@@ -111,7 +111,7 @@ public class AssetManager {
         // Explosió
         explosionSound = Gdx.audio.newSound(Gdx.files.internal("sounds/explosion.wav"));
 
-        //Disparo
+        //Tret
         shootSound = Gdx.audio.newSound(Gdx.files.internal("sounds/shoot.wav"));
 
 
@@ -129,7 +129,7 @@ public class AssetManager {
 
     public static void dispose() {
 
-        // Descrtem els recursos
+        // Descartem els recursos
         sheet.dispose();
         explosionSound.dispose();
         music.dispose();

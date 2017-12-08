@@ -19,10 +19,6 @@ import static cat.xtec.ioc.utils.Settings.BTN_PAUSE_NAME;
 import static cat.xtec.ioc.utils.Settings.GAME_HEIGHT;
 import static cat.xtec.ioc.utils.Settings.GAME_WIDTH;
 
-/**
- * Created by ronny on 20/11/17.
- */
-
 public class Pause extends Actor {
     // Paràmetres del botó
     private Vector2 position;

@@ -80,15 +80,7 @@ public class ScrollHandler extends Group {
     }
 
     public void reset() {
-
-        // Posem el primer asteroid fora de la pantalla per la dreta
-        asteroids.get(0).reset(Settings.GAME_WIDTH);
-        // Calculem les noves posicions de la resta d'asteroids.
-        for (int i = 1; i < asteroids.size(); i++) {
-
-            asteroids.get(i).reset(asteroids.get(i - 1).getTailX() + Settings.ASTEROID_GAP);
-
-        }
+        createAsteroids();
     }
 
     public ArrayList<Asteroid> getAsteroids() {
@@ -109,17 +101,25 @@ public class ScrollHandler extends Group {
         return asteroids;
     }
 
+    /**
+     * Ex 3. a)Els asteroides es comportaran de manera independent entre ells
+     * (seran objectes que anirem instanciant amb “new”)
+     *
+     * @return
+     */
     private Asteroid createAsteroid() {
         // Creem la mida al·leatòria
         float newSize = Methods.randomFloat(Settings.MIN_ASTEROID, Settings.MAX_ASTEROID) * 34;
         return new Asteroid(Settings.GAME_WIDTH, r.nextInt(Settings.GAME_HEIGHT - (int) newSize), newSize, newSize, Settings.ASTEROID_SPEED);
     }
 
-    public int collides(Bullet b) {
-        // Comprovem les col·lisions entre cada asteroid i el dispar
+    public int collides(ArrayList<Bullet> bullets) {
+        // Comprovem les col·lisions entre cada asteroid i el tret
         for (int i = 0; i < asteroids.size(); i++) {
-            if (asteroids.get(i).collides(b)) {
-                return i;
+            for (Bullet b : bullets) {
+                if (asteroids.get(i).collides(b)) {
+                    return i;
+                }
             }
         }
         return -1;

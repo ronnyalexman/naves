@@ -25,7 +25,7 @@ public class Asteroid extends Scrollable {
     Random r;
 
     int assetAsteroid;
-    //Parpadejar quan es pausa
+    //Parpallejar quan es pausa
     public static Action blinking;
 
     public Asteroid(float x, float y, float width, float height, float velocity) {
@@ -126,7 +126,6 @@ public class Asteroid extends Scrollable {
 
     // Retorna true si hi ha col·lisió
     public boolean collides(Bullet fire) {
-
         if (fire != null && position.x <= fire.getX() + fire.getWidth()) {
             // Comprovem si han col·lisionat sempre i quan l'asteroid estigui a la mateixa alçada que la bala
             return (Intersector.overlaps(collisionCircle, fire.getCollisionRect()));

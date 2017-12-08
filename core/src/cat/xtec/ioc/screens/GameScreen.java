@@ -16,7 +16,8 @@ import java.util.ArrayList;
 import cat.xtec.ioc.helpers.AssetManager;
 import cat.xtec.ioc.helpers.InputHandler;
 import cat.xtec.ioc.objects.Asteroid;
-import cat.xtec.ioc.objects.FireButon;
+import cat.xtec.ioc.objects.Bullet;
+import cat.xtec.ioc.objects.FireButton;
 import cat.xtec.ioc.objects.Pause;
 import cat.xtec.ioc.objects.ScrollHandler;
 import cat.xtec.ioc.objects.Spacecraft;
@@ -27,7 +28,7 @@ public class GameScreen implements Screen {
 
     // Els estats del joc
     public enum GameState {
-
+        //Afegim els estats de PAUSE i RESUME
         READY, RUNNING, GAMEOVER, PAUSE, RESUME
 
     }
@@ -37,9 +38,10 @@ public class GameScreen implements Screen {
     // Objectes necessaris
     private Stage stage;
     private Spacecraft spacecraft;
-    private Pause pause;
-    private FireButon fireButon;
     private ScrollHandler scrollHandler;
+    //Butons
+    private Pause pause;
+    private FireButton fireButton;
 
     // Encarregats de dibuixar elements per pantalla
     private ShapeRenderer shapeRenderer;
@@ -51,14 +53,10 @@ public class GameScreen implements Screen {
     // Preparem el textLayout per escriure text
     private GlyphLayout textLayout;
 
-    // Text Pause
+    //Ex. 2 Text Pause
     private Label.LabelStyle textStyle;
     private Label textPause;
     Container containerPause;
-
-    long endPauseTime = 0;
-    long secondsAsteroids = 1000;
-
 
     public GameScreen(Batch prevBatch, Viewport prevViewport) {
 
@@ -75,11 +73,10 @@ public class GameScreen implements Screen {
 
         // Creem la nau i la resta d'objectes
         spacecraft = new Spacecraft(Settings.SPACECRAFT_STARTX, Settings.SPACECRAFT_STARTY, Settings.SPACECRAFT_WIDTH, Settings.SPACECRAFT_HEIGHT);
-
-
-        //Butó pause
-        pause = new Pause(Settings.PAUSE_X, Settings.PAUSE_Y, Settings.PAUSE_WIDTH, Settings.PAUSE_HEIGHT);
         scrollHandler = new ScrollHandler();
+
+        //Botó pause
+        pause = new Pause(Settings.PAUSE_X, Settings.PAUSE_Y, Settings.PAUSE_WIDTH, Settings.PAUSE_HEIGHT);
         //Text Pause
         textStyle = new Label.LabelStyle(AssetManager.font, null);
         textPause = new Label("Pause", textStyle);
@@ -90,14 +87,13 @@ public class GameScreen implements Screen {
         containerPause.setVisible(false);
         stage.addActor(containerPause);
 
-        //Butó fire
-        fireButon = new FireButon(Settings.BTN_FIRE_X, Settings.BTN_FIRE_Y, Settings.BTN_FIRE_WIDTH, Settings.BTN_FIRE_HEIGHT);
-
+        //Botó fire
+        fireButton = new FireButton(Settings.BTN_FIRE_X, Settings.BTN_FIRE_Y, Settings.BTN_FIRE_WIDTH, Settings.BTN_FIRE_HEIGHT);
 
         // Afegim els actors a l'stage
         stage.addActor(scrollHandler);
         stage.addActor(spacecraft);
-        stage.addActor(fireButon);
+        stage.addActor(fireButton);
         stage.addActor(pause);
         // Donem nom a l'Actor
         spacecraft.setName("spacecraft");
@@ -105,7 +101,6 @@ public class GameScreen implements Screen {
         // Iniciem el GlyphLayout
         textLayout = new GlyphLayout();
         textLayout.setText(AssetManager.font, "Are you\nready?");
-
 
         currentState = GameState.READY;
 
@@ -207,13 +202,17 @@ public class GameScreen implements Screen {
 
     private void updateRunning(float delta) {
         stage.act(delta);
-        int index = scrollHandler.collides(spacecraft.fire);
+        //Si el tret ha col·lisionat amb algun asteroid, aquest serà resetejat i
+        // el so i l'animacio de l'explosió es reprodueix
+        int index = scrollHandler.collides(spacecraft.fire);//posició del asteroid colisionat
         if (index != -1) {
             Asteroid tmp = scrollHandler.getAsteroids().get(index);
             AssetManager.explosionSound.play();
+            //animació de la explosió
             batch.begin();
             batch.draw(AssetManager.explosionAnim.getKeyFrame(explosionTime, false), (tmp.getX() + tmp.getWidth() / 2) - 32, tmp.getY() + tmp.getHeight() / 2 - 32, 64, 64);
             batch.end();
+            //reset del asteroid
             scrollHandler.removeAsteroid(index);
         }
 
@@ -223,11 +222,11 @@ public class GameScreen implements Screen {
             //esborrar els dispars quan sigui gameOver
             int i = 0;
             try {
-                while (stage.getRoot().findActor(Settings.FIRE_NAME).remove()) {
+                while (stage.getRoot().findActor(Settings.FIRE_NAME+""+i).remove()) {
                     i++;
                 }
             } catch (NullPointerException d) {
-                Gdx.app.log("Dispars esborrats ", i + "");
+                Gdx.app.log("Trets esborrats ", i + "");
             }
 
             stage.getRoot().findActor("spacecraft").remove();
@@ -250,8 +249,6 @@ public class GameScreen implements Screen {
     }
 
     public void reset() {
-        endPauseTime = System.currentTimeMillis() + secondsAsteroids;
-
         // Posem el text d'inici
         textLayout.setText(AssetManager.font, "Are you\nready?");
         // Cridem als restart dels elements.
@@ -275,6 +272,9 @@ public class GameScreen implements Screen {
 
     }
 
+    /**
+     * Ex 2
+     */
     @Override
     public void pause() {
 
@@ -286,9 +286,11 @@ public class GameScreen implements Screen {
         containerPause.setVisible(true);
 
         spacecraft.paused();
-        if (spacecraft.fire != null) {
-            spacecraft.fire.setPause(true);
-            stage.addActor(spacecraft.fire);
+        if (spacecraft.fire != null && spacecraft.fire.size() > 0) {
+            for (Bullet f : spacecraft.fire) {
+                f.setPause(true);
+                stage.addActor(f);
+            }
         }
         stage.addActor(spacecraft);
         //afegim els canvis del actors
@@ -296,6 +298,9 @@ public class GameScreen implements Screen {
         stage.draw();
     }
 
+    /**
+     * Ex 2 Tornem a posar en moviment el joc
+     */
     @Override
     public void resume() {
         AssetManager.music.play();
@@ -303,7 +308,11 @@ public class GameScreen implements Screen {
         containerPause.setVisible(false);
         spacecraft.resume();
         currentState = GameState.RUNNING;
-        stage.addActor(spacecraft.fire);
+        if (spacecraft.fire != null && spacecraft.fire.size() > 0) {
+            for (Bullet f : spacecraft.fire) {
+                stage.addActor(f);
+            }
+        }
         stage.addActor(spacecraft);
         stage.addActor(pause);
         stage.addActor(containerPause);
@@ -340,8 +349,8 @@ public class GameScreen implements Screen {
         return currentState;
     }
 
-    public FireButon getFireButon() {
-        return fireButon;
+    public FireButton getFireButton() {
+        return fireButton;
     }
 
     public void setCurrentState(GameState currentState) {

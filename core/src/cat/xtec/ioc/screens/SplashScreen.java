@@ -44,18 +44,21 @@ public class SplashScreen implements Screen {
         // Afegim el fons
         stage.addActor(new Image(AssetManager.background));
 
-        // Creem l'estil de l'etiqueta i l'etiqueta
+        // Creem l'estil de l'etiqueta
         textStyle = new Label.LabelStyle(AssetManager.font, null);
         textLbl = new Label("SpaceRace", textStyle);
-        textStart = new Label("Tap Screen to Start", textStyle);
-        textStart.setFontScale(0.2f);
 
         // Creem el contenidor necessari per aplicar-li les accions
         Container container = new Container(textLbl);
         container.setTransform(true);
         container.center();
+
+        //Ex. 1 a)
         container.setPosition(Settings.GAME_WIDTH / 2, Settings.GAME_HEIGHT / 3);// Creem el contenidor necessari per aplicar-li les accions
 
+        //Ex. 1 b)
+        textStart = new Label("Tap Screen to Start", textStyle);
+        textStart.setFontScale(0.2f);
         final Container containerStart = new Container(textStart);
         containerStart.setTransform(true);
         containerStart.center();
@@ -65,6 +68,7 @@ public class SplashScreen implements Screen {
         container.addAction(Actions.repeat(RepeatAction.FOREVER, Actions.sequence(Actions.scaleTo(1.5f, 1.5f, 1), Actions.scaleTo(1, 1, 1))));
         stage.addActor(container);
 
+        //Ex. 1 c)
         containerStart.addAction(Actions.repeat(RepeatAction.FOREVER, Actions.sequence(Actions.run(new Runnable() {
             @Override
             public void run() {
